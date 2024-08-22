@@ -9,6 +9,7 @@ import { JobProvider } from './context/UseContext';
 import SignEmployer from './pages/SignEmployer';
 import SignCandidate from './pages/SignCandidate';
 import Detail from "./pages/Detail";
+import Apply from "./pages/Apply";
 
 const App = () => {
   return (
@@ -23,7 +24,10 @@ const App = () => {
             <Route path='/resource' element={<Resource />} />
             <Route path='/signupemployer' element={<SignEmployer />} />
             <Route path='/signupcandidate' element={<SignCandidate />} />
-            <Route path='/job-detail' element={<Detail />} />
+            <Route path='/job-detail/:id' element={<Detail />} />
+
+            <Route path='/apply' element={<Apply />}/>
+
           </Routes>
         </BrowserRouter>
       </JobProvider>

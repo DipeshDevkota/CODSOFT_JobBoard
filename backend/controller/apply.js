@@ -31,6 +31,24 @@ const newapply = async (req, res) => {
     }
 };
 
+const deleteapply = async (req,res)=>{
+    try {
+
+        const {id} = req.params;
+
+        const deleteapply = await Apply.findByIdAndDelete({id})
+        if (deleteapply) {
+            res.status(200).json({ message: "Apply deleted successfully" });
+        } else {
+            res.status(404).json({ message: "Apply not found" });
+        }
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message:"Internal server error"})
+    }
+}
+
 module.exports = {
-    newapply,
+    newapply,deleteapply
 };

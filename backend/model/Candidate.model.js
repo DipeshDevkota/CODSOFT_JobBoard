@@ -2,7 +2,13 @@ const mongoose = require('mongoose')
 
 const CandidateSchema= mongoose.Schema({
 
-    fullname:{
+
+    _id:{
+        type:Number,
+        required:true,
+    },
+
+    name:{
         type:String,
         required:true,
     },
@@ -11,7 +17,15 @@ const CandidateSchema= mongoose.Schema({
         type:String,
         required:true,
     },
-    phoneno
+    phoneno:{
+        type:String,
+        required:true,
+    },
+    password:{
+        type:String,
+        required:true,
+        unique:true
+    }
 
 
 

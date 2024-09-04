@@ -1,52 +1,148 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useJobContext } from '../context/UseContext'; // Correctly imported
 
-// Create the context
-const JobContext = createContext();
+const Job = () => {
+    const [job, setJob] = useState('');
+    const [position, setPosition] = useState('');
+    const [salary, setSalary] = useState('');
+    const [deadline, setDeadline] = useState('');
+    const [opening, setOpening] = useState('');
+    const [requirement, setRequirement] = useState('');
+    const [location, setLocation] = useState('');
+    const { addJob } = useJobContext(); // Using useJobContext here
+    const navigate = useNavigate();
 
-// Create a provider component
-export const JobProvider = ({ children }) => {
-  const [jobs, setJobs] = useState([
-    {
-      id: 1,
-      title: 'Software Engineer',
-      companyName: 'Tech Innovators Inc.',
-      location: 'San Francisco, CA',
-      salary: '$120,000 - $150,000',
-      jobType: 'Full-time',
-      requirements: [
-        '3+ years of experience in software development',
-        'Proficiency in JavaScript and React',
-        'Experience with Node.js and Express',
-      ],
-      description: 'We are looking for a skilled software engineer to join our dynamic team...',
-      img:'https://images.unsplash.com/photo-1653669487003-7d89b2020f3c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8am9ifGVufDB8fDB8fHww'
-    },
-    {
-      id: 2,
-      title: 'Frontend Developer',
-      companyName: 'Creative Minds LLC',
-      location: 'New York, NY',
-      salary: '$90,000 - $110,000',
-      jobType: 'Full-time',
-      requirements: [
-        '2+ years of experience in frontend development',
-        'Strong knowledge of HTML, CSS, and JavaScript',
-        'Experience with React and Redux',
-      ],
-      description: 'Seeking a talented frontend developer to bring our designs to life...',
-      img:'https://images.unsplash.com/photo-1653669487003-7d89b2020f3c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8am9ifGVufDB8fDB8fHww'
-    },
-    // Add more jobs as needed
-  ]);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  const getJobById = (id) => jobs.find(job => job.id === id);
+        const jobData = {
+            job,
+            position,
+            salary,
+            deadline,
+            opening,
+            requirement,
+            location,
+        };
 
-  return (
-    <JobContext.Provider value={{ jobs, getJobById }}>
-      {children}
-    </JobContext.Provider>
-  );
+        try {
+            const response = await axios.post('http://localhost:3000/api/post/newpost', jobData);
+            addJob(response.data); // Add the new job to context (optional)
+            alert('Job posted successfully');
+            // Clear the form fields
+            setJob('');
+            setPosition('');
+            setSalary('');
+            setDeadline('');
+            setOpening('');
+            setRequirement('');
+            setLocation('');
+            navigate('/all-jobs'); // Navigate to the AllJobs page
+        } catch (error) {
+            console.error('There was an error posting the job:', error);
+            alert('Failed to post job');
+        }
+    };
+
+    return (
+        <div className="max-w-lg mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Post a New Job</h2>
+            <form onSubmit={handleSubmit}>
+                {/* Job Title Input */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2">Job Title:</label>
+                    <input
+                        type="text"
+                        value={job}
+                        onChange={(e) => setJob(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter job title"
+                        required
+                    />
+                </div>
+                {/* Position Input */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2">Position:</label>
+                    <input
+                        type="text"
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter position"
+                        required
+                    />
+                </div>
+                {/* Salary Input */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2">Salary:</label>
+                    <input
+                        type="text"
+                        value={salary}
+                        onChange={(e) => setSalary(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter salary"
+                        required
+                    />
+                </div>
+                {/* Application Deadline Input */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2">Application Deadline (Unix timestamp):</label>
+                    <input
+                        type="number"
+                        value={deadline}
+                        onChange={(e) => setDeadline(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter application deadline"
+                        required
+                    />
+                </div>
+                {/* Number of Openings Input */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2">Number of Openings:</label>
+                    <input
+                        type="number"
+                        value={opening}
+                        onChange={(e) => setOpening(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter number of openings"
+                        required
+                    />
+                </div>
+                {/* Requirements Input */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2">Requirements:</label>
+                    <textarea
+                        value={requirement}
+                        onChange={(e) => setRequirement(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter job requirements"
+                        required
+                    />
+                </div>
+                {/* Location Input */}
+                <div className="mb-6">
+                    <label className="block text-gray-700 font-medium mb-2">Location:</label>
+                    <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                        placeholder="Enter job location"
+                        required
+                    />
+                </div>
+                {/* Submit Button */}
+                <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition duration-300"
+                >
+                    Post Job
+                </button>
+            </form>
+        </div>
+    );
 };
 
-// Custom hook to use the JobContext
-export const useJobContext = () => useContext(JobContext);
+export default Job;

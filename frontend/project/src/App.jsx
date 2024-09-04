@@ -4,7 +4,7 @@ import Candidate from './pages/Candidate';
 import Employee from './pages/Employee';
 import Job from './pages/Job';
 import Resource from './pages/Resource';
-
+import PostJob from "./pages/PostJob";
 import { JobProvider } from './context/UseContext';
 import SignEmployer from './pages/SignEmployer';
 import SignCandidate from './pages/SignCandidate';
@@ -25,7 +25,7 @@ const App = () => {
             <Route path='/signupemployer' element={<SignEmployer />} />
             <Route path='/signupcandidate' element={<SignCandidate />} />
             <Route path='/job-detail/:id' element={<Detail />} />
-
+            <Route path="/post-job" element={<PostJob />} />
             <Route path='/apply' element={<Apply />}/>
 
           </Routes>

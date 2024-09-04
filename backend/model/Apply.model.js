@@ -1,7 +1,7 @@
-const mongoose = require(mongoose)
+const mongoose = require('mongoose')
 // const {Schema} = mongoose;
 
-const applySchema=  mongoose.Schema({
+const applySchema= new  mongoose.Schema({
     name:{
         type:String,
         unique:true,
@@ -29,7 +29,7 @@ const applySchema=  mongoose.Schema({
     },
     file:
     {
-        type:File,
+        type:String,
         required:true,
     },
 })

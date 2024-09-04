@@ -37,47 +37,31 @@ const newPost = async(req,res)=>{
 }
 
 const deletePost = async(req,res)=>{
-
     try {
-        const { id } = req.params;
+        const { id } = req.params; // Extract ID from params
 
-        // Delete a document by its _id
         const deletedPost = await Post.findByIdAndDelete(id);
         
         if (deletedPost) {
-            res.status(200).json({ message: "Post deleted successfully" });
+            return res.status(200).json({ message: "Post deleted successfully" });
         } else {
-            res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ message: "Post not found" });
         }
-        
-
-
-        
     } catch (error) {
         console.log(error)
         return res.status(500).json({message:"Internal Server Error"})
     }
 }
 
-
 const updatePost = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params; // Extract ID from params
         const { job, position, salary, deadline, opening, requirement, location } = req.body;
 
-        // Update the post by its _id with the new data
         const updatedPost = await Post.findByIdAndUpdate(
             id,
-            {
-                job,
-                position,
-                salary,
-                deadline,
-                opening,
-                requirement,
-                location
-            },
-            { new: true } // This option returns the updated document
+            { job, position, salary, deadline, opening, requirement, location },
+            { new: true }
         );
 
         if (updatedPost) {

@@ -1,11 +1,10 @@
 const express = require('express');
-const {    newPost,
-    deletePost,
-    updatePost} = require('../controller/post');
+const { newPost, deletePost, updatePost } = require('../controller/post');
 
-const router= express.Router();
+const router = express.Router();
 
-router.post('/newpost',newPost);
-router.post('/deletepost',deletePost);
-router.post('/updatePost',updatePost);
-module.exports=router;
+router.post('/newpost', newPost);
+router.delete('/deletepost/:id', deletePost); // Use DELETE method
+router.put('/updatePost/:id', updatePost); // Use PUT method
+
+module.exports = router;

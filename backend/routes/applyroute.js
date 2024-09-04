@@ -6,3 +6,6 @@ const router =  express.Router();
 
 router.post('/newapply',newapply)
 router.post('/deleteapply',deleteapply)
+
+
+module.exports= router;

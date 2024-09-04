@@ -1,30 +1,30 @@
 const mongoose = require('mongoose')
 
-const CandidateSchema= mongoose.Schema({
+const CandidateSchema = new mongoose.Schema({
 
 
-    _id:{
-        type:Number,
-        required:true,
+    _id: {
+        type: Number,
+        required: true,
     },
 
-    name:{
-        type:String,
-        required:true,
+    name: {
+        type: String,
+        required: true,
     },
 
-    email:{
-        type:String,
-        required:true,
+    email: {
+        type: String,
+        required: true,
     },
-    phoneno:{
-        type:String,
-        required:true,
+    phoneno: {
+        type: String,
+        required: true,
     },
-    password:{
-        type:String,
-        required:true,
-        unique:true
+    password: {
+        type: String,
+        required: true,
+        unique: true
     }
 
 
@@ -34,7 +34,7 @@ const CandidateSchema= mongoose.Schema({
 })
 
 
-const Candidate = mongoose.model('Candidate',CandidateSchema);
+const Candidate = mongoose.model('Candidate', CandidateSchema);
 
-module.exports= Candidate;
+module.exports = Candidate;
 

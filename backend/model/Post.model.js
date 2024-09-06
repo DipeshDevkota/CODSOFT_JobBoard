@@ -5,7 +5,7 @@ const PostSchema = new mongoose.Schema({
 
     job:{
         type:String,
-        requird:true,
+        required:true,
 
     },
     position:
@@ -18,11 +18,11 @@ const PostSchema = new mongoose.Schema({
         required:true,
     },
     deadline:{
-        type:Number,
+        type:String,
         required:true,
     },
     opening:{
-        type:Number,
+        type:String,
         required:true,
     },
     requirement:{

@@ -25,7 +25,7 @@ const App = () => {
             <Route path='/signupemployer' element={<SignEmployer />} />
             <Route path='/signupcandidate' element={<SignCandidate />} />
             <Route path='/job-detail/:id' element={<Detail />} />
-            <Route path="/post-job" element={<PostJob />} />
+            <Route path="/all-jobs" element={<PostJob />} />
             <Route path='/apply' element={<Apply />}/>
 
           </Routes>

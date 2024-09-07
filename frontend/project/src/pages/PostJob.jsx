@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
@@ -28,11 +29,30 @@ const PostList = () => {
         return <div className="text-red-500 text-center mt-4">{error}</div>;
     }
 
-    const handleApplyClick = (jobId) => {
-        navigate(`/apply/${jobId}`); // Navigate to SignCandidate with jobId
-    };
 
+    const handleApplyClick = async (jobId) => {
+        // Get the logged-in user's ID (you can replace this with the actual method you're using to get the ID)
+        const userId = localStorage.getItem('userId'); // Assuming userId is stored in local storage
+    
+        if (!userId) {
+            alert('Please log in to apply for a job');
+            return;
+        }
+    
+        try {
+            await axios.post(`http://localhost:3000/api/dashboard/apply/${userId}/${jobId}`);
+            alert('Job applied successfully!');
+            navigate(`/signupcandidate/${jobId}`); // Navigate to SignCandidate with jobId
+        } catch (error) {
+            console.error('Error applying for the job', error);
+            alert('Failed to apply for the job');
+        }
+    };
+    
+    
     return (
+        <>
+        <Navbar/>
         <div className="container mx-auto px-4 py-6">
             <h1 className="text-3xl font-bold text-center mb-6">Job Posts</h1>
             {posts.length === 0 ? (
@@ -59,6 +79,8 @@ const PostList = () => {
                 </ul>
             )}
         </div>
+
+        </>
     );
 };
 

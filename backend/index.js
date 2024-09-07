@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const applyroute= require('./routes/applyroute.js')
 const postroute= require('./routes/postroute');
+const dashboardroute= require('./routes/dashboardroute.js');
 const databaseConnection = require('./config/dbConnection.js');
 app.get('/',(req,res)=>{
     res.json({message:'SUSHANK CHUTIYA '})
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', applyroute);
 app.use('/api/post', postroute);
+app.use('/api/dashboard',dashboardroute)
 
 app.listen(port, (error) => {
     if (!error) {

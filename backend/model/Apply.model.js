@@ -13,10 +13,10 @@ const applySchema= new  mongoose.Schema({
         type:String,
         required:true,
     },
-    password:{
-        type:String,
-        required:true,
-    },
+    // password:{
+    //     type:String,
+    //     required:true,
+    // },
     phone:
     {
         type:Number,
@@ -27,7 +27,7 @@ const applySchema= new  mongoose.Schema({
         type:String,
         required:true,
     },
-    file:
+    cv:
     {
         type:String,
         required:true,

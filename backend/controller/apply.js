@@ -2,14 +2,14 @@ const Apply = require('../model/Apply.model');
 
 const newapply = async (req, res) => {
     try {
-        const { name, email, phoneno, message } = req.body;
+        const { name, email, phone, message } = req.body;
         const cv = req.file ? req.file.filename : null;
 
-        if (!name || !email || !phoneno || !message || !cv) {
+        if (!name || !email || !phone || !message || !cv) {
             return res.status(400).json({ message: "Fill all the fields" });
         }
 
-        const existingApply = await Apply.findOne({ phoneno });
+        const existingApply = await Apply.findOne({ phone });
         if (existingApply) {
             return res.status(409).json({ message: "User already exists! Can't apply" });
         }
@@ -17,7 +17,7 @@ const newapply = async (req, res) => {
         const newApply = new Apply({
             name,
             email,
-            phoneno,
+            phone,
             message,
             cv,
         });
@@ -49,6 +49,27 @@ const deleteapply = async (req,res)=>{
     }
 }
 
+
+const allapply = async(req,res)=>{
+    try {
+
+
+        const applied= await Apply.findOne({});
+        if(!applied || applied.length===0)
+        {
+            return res.status(400).json({message:"Not Applied Jobs found"})
+        }
+
+        return res.status(200).json({message:"All applied jobs are:",applied})
+        
+        
+    } catch (error) {
+        return res.status(500).json({message:"Internal Server Error"});
+        console.log(error)
+    }
+
+}
+
 module.exports = {
-    newapply,deleteapply
+    newapply,deleteapply,allapply
 };

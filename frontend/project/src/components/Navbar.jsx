@@ -12,10 +12,12 @@ const Navbar = () => {
 
         <div className="flex gap-8">
           <Link
-            to='/employee'
+            to='/all-jobs'
             className="text-black text-lg hover:text-blue-200 transition duration-300"
           >
-            For Employers
+
+
+            Jobs
           </Link>
           <Link
             to='/candidate'
@@ -41,8 +43,21 @@ const Navbar = () => {
           className=' text-black text-lg py-1 px-4 rounded-lg hover:bg-yellow-400 transition duration-300'>
             Sign Up-Candidate
           </Link>
+          <Link 
+          to='/dashboardemployer'
+          className=' text-black text-lg py-1 px-4 rounded-lg hover:bg-yellow-400 transition duration-300'>
+            EmployerDashboard
+          </Link>
 
           <Link 
+          to='/dashboardcandidate/:id'
+          className=' text-black text-lg py-1 px-4 rounded-lg hover:bg-yellow-400 transition duration-300'>
+            CandidateDashboard
+          </Link>
+
+
+
+          <Link         
           to='/signupemployer'
           className=' text-black text-lg py-1 px-4 rounded-lg hover:bg-yellow-400 transition duration-300'>
             Sign Up-Employer

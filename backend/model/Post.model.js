@@ -32,7 +32,11 @@ const PostSchema = new mongoose.Schema({
     location:{
         type:String,
         required:true,
-    }
+    },
+    applicants: [ {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: 'User'
+     }] 
 })
 
 

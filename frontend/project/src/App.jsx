@@ -6,10 +6,11 @@ import Job from './pages/Job';
 import Resource from './pages/Resource';
 import PostJob from "./pages/PostJob";
 import { JobProvider } from './context/UseContext';
-import SignEmployer from './pages/SignEmployer';
+import DashboardEmployer from "./pages/DashboardEmployer";
 import SignCandidate from './pages/SignCandidate';
 import Detail from "./pages/Detail";
 import Apply from "./pages/Apply";
+import DashboardCandidate from "./pages/DashboardCandidate";
 
 const App = () => {
   return (
@@ -22,8 +23,10 @@ const App = () => {
             <Route path='/employee' element={<Employee />} />
             <Route path='/job' element={<Job />} />
             <Route path='/resource' element={<Resource />} />
-            <Route path='/signupemployer' element={<SignEmployer />} />
-            <Route path='/signupcandidate' element={<SignCandidate />} />
+            <Route path='/dashboardemployer' element={<DashboardEmployer />} />
+            <Route path='/dashboardcandidate/:id' element={<DashboardCandidate />} />
+
+            <Route path='/signupcandidate/:id' element={<SignCandidate />} />
             <Route path='/job-detail/:id' element={<Detail />} />
             <Route path="/all-jobs" element={<PostJob />} />
             <Route path='/apply' element={<Apply />}/>

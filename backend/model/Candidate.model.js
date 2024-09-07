@@ -3,10 +3,7 @@ const mongoose = require('mongoose')
 const CandidateSchema = new mongoose.Schema({
 
 
-    _id: {
-        type: Number,
-        required: true,
-    },
+
 
     name: {
         type: String,
@@ -25,7 +22,10 @@ const CandidateSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    appliedJobs: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+         ref: 'Post' }] 
 
 
 

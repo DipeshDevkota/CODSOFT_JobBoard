@@ -2,6 +2,7 @@ const Candidate = require("../model/Candidate.model");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Register Candidate
 const registerCandidate = async (req, res) => {
     try {
         const { name, email, phoneno, password } = req.body;
@@ -33,6 +34,7 @@ const registerCandidate = async (req, res) => {
     }
 };
 
+// Login Candidate
 const loginCandidate = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -79,7 +81,7 @@ const loginCandidate = async (req, res) => {
     }
 };
 
-
+// Logout Candidate
 const logoutCandidate = async(req,res)=>{
     res.clearCookie("worker");
     res.status(200).json({
@@ -87,9 +89,28 @@ const logoutCandidate = async(req,res)=>{
     })
 }
 
+// Fetch All Candidates
+const allCandidate = async(req, res) => {
+    try {
+        const candidates = await Candidate.find(); // Find all candidates
+
+        if (!candidates || candidates.length === 0) {
+            return res.status(404).json({ message: "No candidates found" });
+        }
+
+        return res.status(200).json({
+            message: "Candidates fetched successfully",
+            candidates
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Server Error" });
+    }
+}
+
 module.exports = {
     registerCandidate,
     loginCandidate,
-    logoutCandidate
-
+    logoutCandidate,
+    allCandidate // Make sure to export this function
 };
